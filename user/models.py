@@ -53,12 +53,12 @@ def profile_image_file_path(instance, filename):
 
 
 class User(AbstractUser):
-    username = None
+    username = models.CharField(max_length=65, unique=True)
     email = models.EmailField(_("email address"), unique=True)
     profile_picture = models.ImageField(
         null=True, blank=True, upload_to="profile_image_file_path"
     )
-    birthdate = models.DateField(null=True, blank=True)
+    birth_date = models.DateField()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
