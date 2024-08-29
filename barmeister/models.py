@@ -7,7 +7,15 @@ from django.conf import settings
 
 
 class Ingredient(models.Model):
+
+    class UnitChoices(models.TextChoices):
+        G = "grams"
+        ML = "milliliters"
+        SLICE = "slice"
+        PIECE = "piece"
+
     name = models.CharField(max_length=100, unique=True)
+    unit = models.CharField(max_length=50, choices=UnitChoices.choices)
 
     def __str__(self):
         return self.name
@@ -21,12 +29,6 @@ def photo_cocktail_file_path(instance, filename):
 
 
 class Cocktail(models.Model):
-
-    class UnitChoices(models.TextChoices):
-        G = "grams"
-        ML = "milliliters"
-        SLICE = "slice"
-        PIECE = "piece"
 
     class TypeChoices(models.TextChoices):
         LOW_ALCOHOLIC = "Low-Alcoholic"
@@ -73,10 +75,9 @@ class Cocktail(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
-    type = models.CharField(max_length=100, choices=TypeChoices.choices)
+    cocktail_type = models.CharField(max_length=100, choices=TypeChoices.choices)
     ingredients = models.ManyToManyField(Ingredient)
-    weight_or_volume = models.PositiveIntegerField()
-    unit = models.CharField(max_length=100, choices=UnitChoices.choices)
+    quantity = models.PositiveIntegerField()
     taste = models.CharField(max_length=100, choices=TasteChoices.choices)
     cocktail_base = models.CharField(max_length=100, choices=CocktailBaseChoices)
     group = models.CharField(max_length=100, choices=GroupChoices.choices)
@@ -87,4 +88,4 @@ class Cocktail(models.Model):
     photo = models.ImageField(upload_to=photo_cocktail_file_path)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField()
+    updated_at = models.DateTimeField(blank=True, null=True)
