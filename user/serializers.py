@@ -33,11 +33,4 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Must be at least 18 years old to register."
             )
-        else:
-            return birth_date
-
-
-class ProfileImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields = ["id", "profile_picture"]
+        return birth_date

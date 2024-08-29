@@ -36,6 +36,7 @@ class UserManager(BaseUserManager):
         """Create and save a SuperUser with the given email and password."""
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("birth_date", "1990-06-13")
 
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_staff=True.")
