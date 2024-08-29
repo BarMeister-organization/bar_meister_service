@@ -1,3 +1,5 @@
 from django.contrib import admin
+from barmeister.models import Ingredient, CocktailRecipe
 
-# Register your models here.
+admin.site.register(Ingredient)
+admin.site.register(CocktailRecipe)
