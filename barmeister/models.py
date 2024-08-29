@@ -9,16 +9,24 @@ from django.conf import settings
 class Ingredient(models.Model):
 
     class UnitChoices(models.TextChoices):
-        G = "grams"
-        ML = "milliliters"
+        G = "gr"
+        ML = "ml"
         SLICE = "slice"
-        PIECE = "piece"
+        PIECE = "pcs"
 
     name = models.CharField(max_length=100, unique=True)
     unit = models.CharField(max_length=50, choices=UnitChoices.choices)
+    quantity = models.DecimalField(max_digits=5, decimal_places=0)
+
+    class Meta:
+        unique_together = ["name", "unit", "quantity"]
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.quantity} {self.unit}"
+
+    @property
+    def ingredient_details(self):
+        return f"{self.name} - {self.quantity} {self.unit}"
 
 
 def photo_cocktail_file_path(instance, filename):
@@ -28,7 +36,7 @@ def photo_cocktail_file_path(instance, filename):
     return os.path.join("uploads/cocktails/", filename)
 
 
-class Cocktail(models.Model):
+class CocktailRecipe(models.Model):
 
     class TypeChoices(models.TextChoices):
         LOW_ALCOHOLIC = "Low-Alcoholic"
@@ -56,6 +64,7 @@ class Cocktail(models.Model):
         RUM = "Rum"
         WINE = "Wine"
         SPARKLING_WINE = "Sparkling Wine"
+        JUICE = "Juice"
 
     class PreparationChoices(models.TextChoices):
         BUILD = "Build"
@@ -74,18 +83,22 @@ class Cocktail(models.Model):
         HOT = "Hot"
 
     name = models.CharField(max_length=100, unique=True)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     cocktail_type = models.CharField(max_length=100, choices=TypeChoices.choices)
     ingredients = models.ManyToManyField(Ingredient)
-    quantity = models.PositiveIntegerField()
     taste = models.CharField(max_length=100, choices=TasteChoices.choices)
     cocktail_base = models.CharField(max_length=100, choices=CocktailBaseChoices)
     group = models.CharField(max_length=100, choices=GroupChoices.choices)
     how_to_make = models.TextField()
     preparation_time = models.IntegerField(help_text="Time in minutes")
-    preparation_method = models.CharField(max_length=100, choices=PreparationChoices.choices)
+    preparation_method = models.CharField(
+        max_length=100, choices=PreparationChoices.choices
+    )
     difficulty = models.CharField(max_length=100, choices=DifficultyChoices.choices)
     photo = models.ImageField(upload_to=photo_cocktail_file_path)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name

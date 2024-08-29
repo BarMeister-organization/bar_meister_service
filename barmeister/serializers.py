@@ -1,24 +1,28 @@
 from rest_framework import serializers
 
-from barmeister.models import Ingredient, Cocktail
+from barmeister.models import Ingredient, CocktailRecipe
 
 
 class IngredientSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Ingredient
-        fields = ["id", "name", "unit"]
+        fields = ["id", "name", "unit", "quantity"]
 
 
 class CocktailSerializer(serializers.ModelSerializer):
-    ingredients = IngredientSerializer(many=True)
+    ingredients = serializers.SlugRelatedField(
+        many=True,
+        slug_field="ingredient_details",
+        queryset=Ingredient.objects.all(),
+    )
 
     class Meta:
-        model = Cocktail
+        model = CocktailRecipe
         fields = [
             "id",
             "name",
             "ingredients",
-            "quantity",
             "cocktail_type",
             "taste",
             "cocktail_base",
@@ -31,5 +35,5 @@ class CocktailSerializer(serializers.ModelSerializer):
             "photo",
             "author",
             "created_at",
-            "updated_at"
+            "updated_at",
         ]
