@@ -5,13 +5,15 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from barmeister.models import CocktailRecipe, Ingredient
+from barmeister.models import CocktailRecipe, Ingredient, Comment
 from barmeister.permissions import IsOwnerOrReadOnly, IsOwnerOrReadOnlyAuthor
 from barmeister.serializers import (
     CocktailSerializer,
     IngredientSerializer,
     CocktailImageSerializer,
     CocktailListSerialize,
+    CommentSerializer,
+    CommentListSerializer,
 )
 
 
@@ -51,3 +53,15 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
 class IngredientsViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all().select_related("author", "cocktail")
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+    def get_serializer_class(self):
+        if self.action in ("list", "retrieve"):
+            return CommentListSerializer
+        return CommentSerializer
