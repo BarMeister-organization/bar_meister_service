@@ -98,7 +98,17 @@ class CocktailRecipe(models.Model):
     photo = models.ImageField(upload_to=photo_cocktail_file_path)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments"
+    )
+    cocktail = models.ForeignKey(
+        CocktailRecipe, on_delete=models.CASCADE, related_name="comments"
+    )
+    content = models.TextField()
+    commented_at = models.DateTimeField(auto_now_add=True)
