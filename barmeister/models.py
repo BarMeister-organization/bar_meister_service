@@ -100,6 +100,9 @@ class CocktailRecipe(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
 
@@ -113,3 +116,28 @@ class Comment(models.Model):
     )
     content = models.TextField()
     commented_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-commented_at"]
+
+    def __str__(self):
+        return (
+            f"{self.author} added comment: {self.content} for cocktail {self.cocktail}"
+        )
+
+
+class FavouriteCocktails(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="favourites"
+    )
+    cocktail = models.ForeignKey(
+        CocktailRecipe, on_delete=models.CASCADE, related_name="favourites"
+    )
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ["user", "cocktail"]
+        ordering = ["-added_at"]
+
+    def __str__(self):
+        return f"{self.user} added cocktail {self.cocktail} in favourite list"
