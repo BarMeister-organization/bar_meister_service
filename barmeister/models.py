@@ -13,6 +13,7 @@ class Ingredient(models.Model):
         ML = "ml"
         SLICE = "slice"
         PIECE = "pcs"
+        tablespoon = "tablespoon"
 
     name = models.CharField(max_length=100, unique=True)
     unit = models.CharField(max_length=50, choices=UnitChoices.choices)

@@ -30,7 +30,7 @@ class CocktailSerializer(serializers.ModelSerializer):
         slug_field="name",
         queryset=Ingredient.objects.all(),
     )
-    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
     author = serializers.CharField(source="author.username", read_only=True)
     comments = CommentListSerializer(many=True, read_only=True)
 

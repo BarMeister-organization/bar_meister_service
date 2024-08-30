@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from rest_framework.decorators import action
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
@@ -22,7 +20,7 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
     queryset = (
         CocktailRecipe.objects.all()
         .select_related("author")
-        .prefetch_related("ingredients")
+        .prefetch_related("ingredients", "comments__author")
     )
 
     def perform_create(self, serializer):
