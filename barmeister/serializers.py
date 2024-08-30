@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from barmeister.models import Ingredient, CocktailRecipe
+from barmeister.models import Ingredient, CocktailRecipe, Comment
 
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -10,6 +10,20 @@ class IngredientSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "unit", "quantity"]
 
 
+class CommentSerializer(serializers.ModelSerializer):
+    commented_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
+    author = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ["id", "author", "cocktail", "content", "commented_at"]
+
+
+class CommentListSerializer(CommentSerializer):
+    author = serializers.CharField(source="author.username", read_only=True)
+    cocktail = serializers.CharField(source="cocktail.name", read_only=True)
+
+
 class CocktailSerializer(serializers.ModelSerializer):
     ingredients = serializers.SlugRelatedField(
         many=True,
@@ -17,8 +31,8 @@ class CocktailSerializer(serializers.ModelSerializer):
         queryset=Ingredient.objects.all(),
     )
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
-    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
     author = serializers.CharField(source="author.username", read_only=True)
+    comments = CommentListSerializer(many=True, read_only=True)
 
     class Meta:
         model = CocktailRecipe
@@ -38,7 +52,7 @@ class CocktailSerializer(serializers.ModelSerializer):
             "photo",
             "author",
             "created_at",
-            "updated_at",
+            "comments",
         ]
 
 
