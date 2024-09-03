@@ -7,27 +7,10 @@ from django.conf import settings
 
 
 class Ingredient(models.Model):
-
-    class UnitChoices(models.TextChoices):
-        G = "gr"
-        ML = "ml"
-        SLICE = "slice"
-        PIECE = "pcs"
-        tablespoon = "tablespoon"
-
     name = models.CharField(max_length=100, unique=True)
-    unit = models.CharField(max_length=50, choices=UnitChoices.choices)
-    quantity = models.DecimalField(max_digits=5, decimal_places=0)
-
-    class Meta:
-        unique_together = ["name", "unit", "quantity"]
 
     def __str__(self):
-        return f"{self.name} - {self.quantity} {self.unit}"
-
-    @property
-    def ingredient_details(self):
-        return f"{self.name} - {self.quantity} {self.unit}"
+        return self.name
 
 
 def photo_cocktail_file_path(instance, filename):
@@ -86,7 +69,7 @@ class CocktailRecipe(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True, null=True)
     cocktail_type = models.CharField(max_length=100, choices=TypeChoices.choices)
-    ingredients = models.ManyToManyField(Ingredient)
+    ingredients = models.ManyToManyField(Ingredient, through="CocktailIngredients")
     taste = models.CharField(max_length=100, choices=TasteChoices.choices)
     cocktail_base = models.CharField(max_length=100, choices=CocktailBaseChoices)
     group = models.CharField(max_length=100, choices=GroupChoices.choices)
@@ -105,6 +88,30 @@ class CocktailRecipe(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class CocktailIngredients(models.Model):
+    class UnitChoices(models.TextChoices):
+        G = "gr"
+        ML = "ml"
+        SLICE = "slice"
+        PIECE = "pcs"
+        tablespoon = "tablespoon"
+
+    cocktail = models.ForeignKey(
+        CocktailRecipe, on_delete=models.CASCADE, related_name="cocktail_ingredients"
+    )
+    ingredient = models.ForeignKey(
+        Ingredient, on_delete=models.CASCADE, related_name="ingredient_in_cocktails"
+    )
+    unit = models.CharField(max_length=50, choices=UnitChoices.choices)
+    quantity = models.DecimalField(max_digits=5, decimal_places=0)
+
+    class Meta:
+        unique_together = ["cocktail", "ingredient"]
+
+    def __str__(self):
+        return f"{self.ingredient.name} - {self.quantity} {self.unit}"
 
 
 class Comment(models.Model):

@@ -20,7 +20,7 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
     queryset = (
         CocktailRecipe.objects.all()
         .select_related("author")
-        .prefetch_related("ingredients", "comments__author")
+        .prefetch_related("cocktail_ingredients__ingredient", "comments__author")
     )
 
     def perform_create(self, serializer):
