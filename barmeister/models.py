@@ -147,4 +147,4 @@ class FavouriteCocktails(models.Model):
         ordering = ["-added_at"]
 
     def __str__(self):
-        return f"{self.user} added cocktail {self.cocktail} in favourite list"
+        return f"{self.user.username} added cocktail {self.cocktail} in favourite list"

@@ -15,7 +15,7 @@ admin.site.register(FavouriteCocktails)
 
 class CocktailIngredientsInline(admin.TabularInline):
     model = CocktailIngredients
-    extra = 1  # Додаткові пусті поля для створення нових записів
+    extra = 1
 
 
 @admin.register(CocktailRecipe)

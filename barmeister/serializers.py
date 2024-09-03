@@ -89,13 +89,20 @@ class CocktailImageSerializer(serializers.ModelSerializer):
         fields = ["id", "photo"]
 
 
-class CocktailListSerialize(CocktailSerializer):
+class CocktailListSerializer(CocktailSerializer):
     class Meta:
         model = CocktailRecipe
         fields = ["id", "name", "photo"]
 
 
 class FavouriteCocktailsSerializer(serializers.ModelSerializer):
+    added_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
+
     class Meta:
         model = FavouriteCocktails
         fields = ["id", "user", "cocktail", "added_at"]
+
+
+class FavouriteCocktailsListSerializer(FavouriteCocktailsSerializer):
+    user = serializers.CharField(source="user.username", read_only=True)
+    cocktail = serializers.CharField(source="cocktail.name", read_only=True)

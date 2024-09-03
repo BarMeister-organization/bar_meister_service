@@ -2,16 +2,18 @@ from rest_framework.decorators import action
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet, ReadOnlyModelViewSet
 
-from barmeister.models import CocktailRecipe, Ingredient, Comment
-from barmeister.permissions import IsOwnerOrReadOnly, IsOwnerOrReadOnlyAuthor
+from barmeister.models import CocktailRecipe, Ingredient, Comment, FavouriteCocktails
+from barmeister.permissions import IsOwnerOrReadOnlyAuthor
 from barmeister.serializers import (
     CocktailSerializer,
     IngredientSerializer,
     CocktailImageSerializer,
-    CocktailListSerialize,
+    CocktailListSerializer,
     CommentSerializer,
     CommentListSerializer,
+    FavouriteCocktailsListSerializer,
 )
 
 
@@ -29,7 +31,7 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
     @action(
         methods=["POST"],
         detail=True,
-        permission_classes=[IsAuthenticated],
+        permission_classes=[IsAuthenticated, IsOwnerOrReadOnlyAuthor],
         url_path="upload-image",
     )
     def upload_image(self, request, pk=None):
@@ -40,11 +42,60 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(
+        methods=["POST", "GET"],
+        detail=True,
+        permission_classes=[IsAuthenticated],
+        url_path="add_to_favourites",
+    )
+    def add_to_favourites(self, request, pk=None):
+        cocktail = self.get_object()
+        user = request.user
+
+        if cocktail.author == user:
+            return Response(
+                {"error": "You cannot add your own cocktail to favourites."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if FavouriteCocktails.objects.filter(user=user, cocktail=cocktail).exists():
+            return Response({"You have already added this cocktail in favourites"})
+
+        favourite_cocktail = FavouriteCocktails.objects.create(
+            user=user, cocktail=cocktail
+        )
+        serializer = FavouriteCocktailsListSerializer(favourite_cocktail)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(
+        methods=["POST", "GET"],
+        detail=True,
+        permission_classes=[IsAuthenticated],
+        url_path="remove_from_favourites",
+    )
+    def remove_from_favourites(self, request, pk=None):
+        cocktail = self.get_object()
+        user = request.user
+        favourite_cocktail = FavouriteCocktails.objects.filter(
+            user=user, cocktail=cocktail
+        )
+
+        if cocktail.author == user:
+            return Response(
+                {"error": "You cannot remove your own cocktail from favourites."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if favourite_cocktail.exists():
+            favourite_cocktail.delete()
+            return Response({"You remove this cocktail from favourites"})
+        return Response({"You haven't added this cocktail in favourites"})
+
     def get_serializer_class(self):
         if self.action == "upload_image":
             return CocktailImageSerializer
         if self.action == "list":
-            return CocktailListSerialize
+            return CocktailListSerializer
         return CocktailSerializer
 
 
@@ -55,6 +106,7 @@ class IngredientsViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all().select_related("author", "cocktail")
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnlyAuthor]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -63,3 +115,39 @@ class CommentViewSet(viewsets.ModelViewSet):
         if self.action in ("list", "retrieve"):
             return CommentListSerializer
         return CommentSerializer
+
+
+class FavouriteCocktailsViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = FavouriteCocktailsListSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return FavouriteCocktails.objects.filter(user=user)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if not queryset.exists():
+            return Response(
+                {"error": "You have no favourite cocktails."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        return super().list(request, *args, **kwargs)
+
+
+class MyCocktailsViewSet(ReadOnlyModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CocktailListSerializer
+
+    def get_queryset(self):
+        author = self.request.user
+        return CocktailRecipe.objects.filter(author=author)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        if not queryset.exists():
+            return Response(
+                {"error": "You haven't added your own cocktails yet."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        return super().list(request, *args, **kwargs)

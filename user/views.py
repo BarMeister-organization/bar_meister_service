@@ -1,9 +1,9 @@
+from django.contrib.auth import get_user_model
 from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenBlacklistView
 
-from barmeister.permissions import IsOwnerOrReadOnly
 from user.serializers import UserSerializer
 
 
@@ -14,7 +14,7 @@ class CreateUserView(generics.CreateAPIView):
 
 class ManageUserView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly, IsAdminUser]
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         return self.request.user
