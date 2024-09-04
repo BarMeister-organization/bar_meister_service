@@ -6,6 +6,7 @@ from barmeister.models import (
     Comment,
     FavouriteCocktails,
     CocktailIngredients,
+    Rating
 )
 
 
@@ -60,6 +61,7 @@ class CocktailSerializer(serializers.ModelSerializer):
             "preparation_method",
             "difficulty",
             "photo",
+            "average_rating",
             "author",
             "created_at",
             "comments",
@@ -106,3 +108,11 @@ class FavouriteCocktailsSerializer(serializers.ModelSerializer):
 class FavouriteCocktailsListSerializer(FavouriteCocktailsSerializer):
     user = serializers.CharField(source="user.username", read_only=True)
     cocktail = serializers.CharField(source="cocktail.name", read_only=True)
+
+
+class RatingSerializer(serializers.ModelSerializer):
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
+
+    class Meta:
+        model = Rating
+        fields = ["id", "user", "cocktail", "stars", "created_at"]
