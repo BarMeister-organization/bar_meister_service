@@ -18,7 +18,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 
 class CocktailIngredientSerializer(serializers.ModelSerializer):
-    ingredient_name = serializers.CharField(source="ingredient.name", read_only=True)
+    ingredient_name = serializers.CharField(source="ingredient.name")
 
     class Meta:
         model = CocktailIngredients

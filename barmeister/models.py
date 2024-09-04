@@ -12,6 +12,9 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ["name"]
+
 
 def photo_cocktail_file_path(instance, filename):
     _, extension = os.path.splitext(filename)
@@ -128,9 +131,7 @@ class Comment(models.Model):
         ordering = ["-commented_at"]
 
     def __str__(self):
-        return (
-            f"{self.author} added comment: {self.content} for cocktail {self.cocktail}"
-        )
+        return f"{self.author.username} added comment: {self.content} for cocktail {self.cocktail}"
 
 
 class FavouriteCocktails(models.Model):
@@ -164,11 +165,11 @@ class Rating(models.Model):
     cocktail = models.ForeignKey(
         CocktailRecipe, on_delete=models.CASCADE, related_name="ratings"
     )
-    stars = models.PositiveIntegerField(default=0)
+    stars = models.PositiveIntegerField(default=0, choices=StarChoices.choices)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ["user", "cocktail"]
 
     def __str__(self):
-        return f"{self.cocktail.name} rating:{self.stars}"
+        return f"{self.cocktail.name} rating: {self.stars}"

@@ -5,17 +5,19 @@ from barmeister.models import (
     Comment,
     FavouriteCocktails,
     CocktailIngredients,
+    Rating,
 )
 
 
 admin.site.register(Ingredient)
 admin.site.register(Comment)
 admin.site.register(FavouriteCocktails)
+admin.site.register(Rating)
 
 
 class CocktailIngredientsInline(admin.TabularInline):
     model = CocktailIngredients
-    extra = 1
+    extra = 0
 
 
 @admin.register(CocktailRecipe)
