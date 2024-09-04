@@ -168,7 +168,7 @@ class Rating(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ["user", "cocktail", "stars"]
+        unique_together = ["user", "cocktail"]
 
     def __str__(self):
         return f"{self.cocktail.name} rating:{self.stars}"

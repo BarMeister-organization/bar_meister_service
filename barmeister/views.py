@@ -2,9 +2,15 @@ from rest_framework.decorators import action
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet, ReadOnlyModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from barmeister.models import CocktailRecipe, Ingredient, Comment, FavouriteCocktails
+from barmeister.models import (
+    CocktailRecipe,
+    Ingredient,
+    Comment,
+    FavouriteCocktails,
+    Rating,
+)
 from barmeister.permissions import IsOwnerOrReadOnlyAuthor
 from barmeister.serializers import (
     CocktailSerializer,
@@ -14,6 +20,7 @@ from barmeister.serializers import (
     CommentSerializer,
     CommentListSerializer,
     FavouriteCocktailsListSerializer,
+    RatingSerializer,
 )
 
 
@@ -91,11 +98,45 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
             return Response({"You remove this cocktail from favourites"})
         return Response({"You haven't added this cocktail in favourites"})
 
+    @action(
+        methods=["POST", "GET"],
+        detail=True,
+        permission_classes=[IsAuthenticated],
+        url_path="rate",
+    )
+    def rate(self, request, pk=None):
+        cocktail = self.get_object()
+        user = request.user
+
+        if cocktail.author == user:
+            return Response(
+                {"error": "You cannot rate your own cocktail."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if Rating.objects.filter(user=user, cocktail=cocktail).exists():
+            return Response(
+                {"error": "You have already rated this cocktail."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        serializer = RatingSerializer(
+            data=request.data, context={"user": user, "cocktail": cocktail}
+        )
+
+        if serializer.is_valid():
+            serializer.save(user=user, cocktail=cocktail)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     def get_serializer_class(self):
         if self.action == "upload_image":
             return CocktailImageSerializer
         if self.action == "list":
             return CocktailListSerializer
+        if self.action == "rate":
+            return RatingSerializer
         return CocktailSerializer
 
 
