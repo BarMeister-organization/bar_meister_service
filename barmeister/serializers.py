@@ -6,7 +6,7 @@ from barmeister.models import (
     Comment,
     FavouriteCocktails,
     CocktailIngredients,
-    Rating
+    Rating,
 )
 
 
@@ -44,6 +44,7 @@ class CocktailSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
     author = serializers.CharField(source="author.username", read_only=True)
     comments = CommentListSerializer(many=True, read_only=True)
+    average_rating = serializers.SerializerMethodField()
 
     class Meta:
         model = CocktailRecipe
@@ -66,6 +67,13 @@ class CocktailSerializer(serializers.ModelSerializer):
             "created_at",
             "comments",
         ]
+
+    def get_average_rating(self, obj):
+        ratings = Rating.objects.filter(cocktail=obj)
+        if len(ratings) > 0:
+            sum_of_stars = sum(rating.stars for rating in ratings)
+            return round(sum_of_stars / len(ratings))
+        return 0
 
     def create(self, validated_data):
         ingredients_data = validated_data.pop("ingredients")

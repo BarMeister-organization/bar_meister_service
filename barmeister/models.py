@@ -1,7 +1,6 @@
 import os
 import uuid
 
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.text import slugify
 from django.conf import settings
@@ -111,16 +110,6 @@ class CocktailIngredients(models.Model):
     class Meta:
         unique_together = ["cocktail", "ingredient"]
 
-    def average_rating(self):
-        sum_of_stars = 0
-        ratings = Rating.objects.filter(cocktail=self)
-        for rating in ratings:
-            sum_of_stars += rating.stars
-
-        if len(ratings) > 0:
-            return sum_of_stars / len(ratings)
-        return 0
-
     def __str__(self):
         return f"{self.ingredient.name} - {self.quantity} {self.unit}"
 
@@ -162,13 +151,20 @@ class FavouriteCocktails(models.Model):
 
 
 class Rating(models.Model):
+    class StarChoices(models.IntegerChoices):
+        ONE = 1
+        TWO = 2
+        THREE = 3
+        FOUR = 4
+        FIVE = 5
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="ratings"
     )
     cocktail = models.ForeignKey(
         CocktailRecipe, on_delete=models.CASCADE, related_name="ratings"
     )
-    stars = models.PositiveIntegerField(blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    stars = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
