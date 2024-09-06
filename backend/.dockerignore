@@ -6,6 +6,7 @@
 **db.sqlite3
 media
 .venv
-.env
+README.md
+Dockerfile
+.env.sample
 venv
-*.idea
