@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenBlacklistView,
 )
-from user.views import CreateUserView, ManageUserView, LogoutView
+from .views import CreateUserView, ManageUserView, LogoutView
 
 
 urlpatterns = [

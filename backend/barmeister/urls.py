@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from barmeister.views import (
+from .views import (
     CocktailRecipeViewSet,
     IngredientsViewSet,
     CommentViewSet,

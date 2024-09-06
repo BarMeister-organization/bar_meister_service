@@ -1,4 +1,4 @@
-.idea/
+../.idea/
 .vscode/
 *.iml
 .pytest_cache/
@@ -6,6 +6,7 @@
 **db.sqlite3
 media
 .venv
-README.md
 Dockerfile
 .env
+venv
+*.idea

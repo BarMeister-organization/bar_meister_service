@@ -1,5 +1,5 @@
 from django.contrib import admin
-from barmeister.models import (
+from .models import (
     Ingredient,
     CocktailRecipe,
     Comment,

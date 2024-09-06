@@ -1,10 +1,9 @@
-from django.contrib.auth import get_user_model
 from rest_framework import generics, status
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenBlacklistView
 
-from user.serializers import UserSerializer
+from .serializers import UserSerializer
 
 
 class CreateUserView(generics.CreateAPIView):

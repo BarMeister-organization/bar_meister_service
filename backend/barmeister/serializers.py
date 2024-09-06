@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from barmeister.models import (
+from .models import (
     Ingredient,
     CocktailRecipe,
     Comment,

@@ -4,15 +4,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from barmeister.models import (
+from .models import (
     CocktailRecipe,
     Ingredient,
     Comment,
     FavouriteCocktails,
     Rating,
 )
-from barmeister.permissions import IsOwnerOrReadOnlyAuthor
-from barmeister.serializers import (
+from .permissions import IsOwnerOrReadOnlyAuthor
+from .serializers import (
     CocktailSerializer,
     IngredientSerializer,
     CocktailImageSerializer,
