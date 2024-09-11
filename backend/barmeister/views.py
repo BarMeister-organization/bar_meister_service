@@ -141,14 +141,17 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action in (
+            "rate",
+            "add_to_favourites",
+            "remove_from_favourites",
+        ):
+            permission_classes = [IsAuthenticated]
+        if self.action in (
             "update",
             "partial_update",
             "destroy",
             "post",
             "upload_image",
-            "rate",
-            "add_to_favourites",
-            "remove_from_favourites",
         ):
             permission_classes = [IsAuthenticated, IsOwnerOrReadOnlyAuthor]
         else:

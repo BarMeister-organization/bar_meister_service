@@ -114,8 +114,11 @@ class FavouriteCocktailsSerializer(serializers.ModelSerializer):
 
 
 class FavouriteCocktailsListSerializer(FavouriteCocktailsSerializer):
-    user = serializers.CharField(source="user.username", read_only=True)
     cocktail = serializers.CharField(source="cocktail.name", read_only=True)
+
+    class Meta:
+        model = FavouriteCocktails
+        fields = ["id", "cocktail", "added_at"]
 
 
 class RatingSerializer(serializers.ModelSerializer):

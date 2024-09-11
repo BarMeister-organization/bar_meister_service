@@ -1,14 +1,15 @@
 services:
-  barmeister:
+  app:
     build:
       context: .
+      dockerfile: backend/Dockerfile
     env_file:
-      - .env
+      - backend/.env
     ports:
       - "8000:8000"
     volumes:
-      - ./:/app
-      - my_media:/files/media
+      - ./backend:/app
+      - ./backend/media:/vol/web/media
     command: >
       sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     depends_on:
@@ -18,7 +19,7 @@ services:
     image: postgres:16.0-alpine3.17
     restart: always
     env_file:
-      - .env
+      - backend/.env
     volumes:
       - my-db:/var/lib/postgresql/data
     ports:
