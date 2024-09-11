@@ -6,9 +6,6 @@
 4. `copy .env.sample -> .env and populate with all required data`
 5. `docker-compose up --build`
 6. http://127.0.0.1:8000/
-7. `admin page /admin/` 
-   `- password: admin`
-   `- email: admin@admin.com`
 
 ## Getting access
 
