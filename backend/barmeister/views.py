@@ -1,6 +1,7 @@
 from rest_framework.decorators import action
 from rest_framework import viewsets, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import NotAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
@@ -25,7 +26,6 @@ from .serializers import (
 
 
 class CocktailRecipeViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnlyAuthor]
     queryset = (
         CocktailRecipe.objects.all()
         .select_related("author")
@@ -36,7 +36,7 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
     @action(
-        methods=["POST"],
+        methods=["POST", "GET"],
         detail=True,
         permission_classes=[IsAuthenticated, IsOwnerOrReadOnlyAuthor],
         url_path="upload-image",
@@ -139,23 +139,49 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
             return RatingSerializer
         return CocktailSerializer
 
+    def get_permissions(self):
+        if self.action in (
+            "update",
+            "partial_update",
+            "destroy",
+            "post",
+            "upload_image",
+            "rate",
+            "add_to_favourites",
+            "remove_from_favourites",
+        ):
+            permission_classes = [IsAuthenticated, IsOwnerOrReadOnlyAuthor]
+        else:
+            permission_classes = [AllowAny]
+        return [permission() for permission in permission_classes]
+
 
 class IngredientsViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all().select_related("author", "cocktail")
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnlyAuthor]
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        if self.request.user.is_authenticated:
+            serializer.save(author=self.request.user)
+        else:
+            raise NotAuthenticated(detail="You haven't authenticated yet.")
 
     def get_serializer_class(self):
         if self.action in ("list", "retrieve"):
             return CommentListSerializer
         return CommentSerializer
+
+    def get_permissions(self):
+        if self.action in ("update", "partial_update", "destroy", "post"):
+            permission_classes = [IsAuthenticated, IsOwnerOrReadOnlyAuthor]
+        else:
+            permission_classes = [AllowAny]
+        return [permission() for permission in permission_classes]
 
 
 class FavouriteCocktailsViewSet(viewsets.ModelViewSet):
