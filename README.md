@@ -48,3 +48,21 @@ export default tseslint.config({
   },
 })
 ```
+# Backend
+## How to run
+
+1. `python3 -m venv venv`
+2. `source venv/bin/activate`
+3. `copy .env.sample -> .env`
+4. `docker-compose up --build`
+5. http://127.0.0.1:8000/
+
+## Getting access
+
+ - `create user  /api/user/register/`
+ - `get access token  /api/user/token/`
+ - `logout  /api/user/logout/`
+ - `refresh token /token/refresh/`
+
+## API Swagger
+ - `/api/schema/swagger-ui/`
