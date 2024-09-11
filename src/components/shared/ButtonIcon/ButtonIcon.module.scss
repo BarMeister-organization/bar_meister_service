@@ -1,0 +1,14 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  fill: $white-color;
+}

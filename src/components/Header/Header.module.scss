@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(16px);
+  padding: 0 $padding-mobile;
+  z-index: 700;
+}
+
+.logo {
+  width: 150px;
+  padding: 5px 0;
+}
+
+.iconsBox {
+  display: flex;
+  gap: 12px;
+}
+
+.btnUser {
+  display: none;
+}

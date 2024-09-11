@@ -1,0 +1,122 @@
+.hero {
+  position: relative;
+  padding: 24px;
+  text-align: center;
+  color: $white-color;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(16px);
+
+  background: linear-gradient(
+    to right, 
+    rgba(0, 0, 0, 1) 0%, 
+    rgba(0, 0, 0, 0) 30%, 
+    rgba(0, 0, 0, 0) 70%, 
+    rgba(0, 0, 0, 1) 100%
+  );
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('./img/hero/background.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+    filter: blur(16px);
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.text {
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.title {
+  font-family: $dancing-font;
+  font-size: 72px;
+  font-weight: 600;
+}
+
+.button {
+  background-color: $button-bcg-color;
+  color: $dark-color;
+  font-weight: 600;
+  padding: 8px 24px;
+  border-radius: 8px;
+  border: 1px solid $border-color;
+
+  @include hover(transform, scale(1.1));
+}
+
+.cocktail {
+  transform: translateY(60px);
+}
+
+.cocktailPhoto {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  background-image: url('./img/hero/background.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -2;
+  border-radius: 8px;
+}
+
+.info {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 14px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  backdrop-filter: blur(6px);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  letter-spacing: -0.03em;
+  text-shadow: $black-color 1px 1px 0px;
+}
+
+.name {
+  font-family: $dancing-font;
+  font-size: 30px;
+}
+
+.descr {
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+.iconBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border: 1px solid $white-color;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+
+  @include hover(background-color, $black-color)
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: $white-color;
+}
