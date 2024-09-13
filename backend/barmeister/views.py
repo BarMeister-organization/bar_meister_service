@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.decorators import action
 from rest_framework import viewsets, status
 from rest_framework.exceptions import NotAuthenticated
@@ -31,6 +32,27 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
         .select_related("author")
         .prefetch_related("cocktail_ingredients__ingredient", "comments__author")
     )
+
+    def get_queryset(self):
+        name = self.request.query_params.get("name")
+        queryset = self.queryset
+
+        if name:
+            queryset = queryset.filter(name__icontains=name)
+            return queryset.distinct()
+        return queryset
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="name",
+                type=str,
+                description="Filter by the name of the cocktail",
+            )
+        ]
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -163,6 +185,27 @@ class IngredientsViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        name = self.request.query_params.get("name")
+        queryset = self.queryset
+
+        if name:
+            queryset = queryset.filter(name__icontains=name)
+            return queryset.distinct()
+        return queryset
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="name",
+                type=str,
+                description="Filter by the name of the ingredient",
+            )
+        ]
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
