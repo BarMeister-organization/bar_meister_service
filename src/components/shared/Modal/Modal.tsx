@@ -4,9 +4,10 @@ import style from './Modal.module.scss';
 
 type Props = {
   children: React.ReactNode;
+  onClose: () => void;
 }
 
-const Modal: React.FC<Props> = ({ children }) => {
+const Modal: React.FC<Props> = ({ children, onClose }) => {
   const portalRoot = document.getElementById('root-portal');
 
   if (!portalRoot) {
@@ -15,7 +16,7 @@ const Modal: React.FC<Props> = ({ children }) => {
   }
 
   return ReactDOM.createPortal (
-    <div className={style.modal}>
+    <div className={style.modal} onClick={onClose}>
       {children}
     </div>,
     portalRoot,

@@ -6,9 +6,8 @@
   border: none;
 }
 
-.icon {
-  width: 24px;
-  height: 24px;
-  padding: 2px;
-  fill: $white-color;
+.children {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

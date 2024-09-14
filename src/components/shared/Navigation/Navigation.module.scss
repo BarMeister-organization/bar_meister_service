@@ -1,0 +1,21 @@
+.nav {
+  display: flex;
+  gap: 18px;
+}
+
+.navMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.text,
+.textMenu {
+  color: $white-color;
+  font-size: 18px;
+}
+
+.textMenu {
+  padding: 10px 0;
+}
