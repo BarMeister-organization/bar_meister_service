@@ -1,0 +1,81 @@
+.custom-shake {
+  background: linear-gradient(to right, #b88039, #fffc25);
+  font-family: $main-font-family;
+  color: $white-color;
+  padding: 40px 24px;
+  row-gap: 40px;
+
+  @include page-grid;
+
+  @include on-wide-desktop {
+    padding: 40px;
+  }
+}
+
+.block,
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.block {
+  gap: 24px;
+  grid-column: 1 / -1;
+  height: 100%;
+
+  @include on-tablet {
+    justify-content: space-between;
+  }
+
+  @include on-desktop {
+    grid-column: span 6;
+
+    @include page-grid;
+  }
+}
+
+.content {
+  row-gap: 20px;
+  grid-column: span 6;
+
+  @include on-tablet {
+    justify-content: space-between;
+  }
+
+  &--2 {
+    @include on-desktop {
+      order: 2;
+    }
+  }
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.text {
+  margin-top: 10px;
+}
+
+.button {
+  padding: 8px 24px;
+  width: fit-content;
+  background: linear-gradient(to bottom, #D3E1F5, #B6CEEE);
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.image {
+  grid-column: span 6;
+  align-self: start;
+
+  @include on-tablet {
+    height: 250px;
+  }
+
+  @include on-desktop {
+    align-self: center;
+    max-width: 100%;
+  }
+}
