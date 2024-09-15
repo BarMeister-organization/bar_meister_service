@@ -48,10 +48,12 @@
 }
 
 .search {
-  color: white;
+  display: none;
 
   @include on-desktop {
+    display: inline-block;
     font-size: 18px;
+    color: white;
   }
 }
 

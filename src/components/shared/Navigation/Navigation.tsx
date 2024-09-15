@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import Icon from '../Icon/Icon';
 import style from './Navigation.module.scss';
@@ -15,11 +15,11 @@ const navigationItems = [
   { to: "/coctails", icon: 'icon-glass', label: 'Cocktails' },
   { to: "/bar", icon: 'icon-beaker', label: 'My Bar' },
   { to: "/favorites", icon: 'icon-heart', label: 'Favorites' },
-  { icon: 'icon-user', label: 'Login/Register' },
-  { icon: 'icon-logout', label: 'Log Out' },
 ];
 
 const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <nav className={classNames(style.nav, {
       [style.navMenu]: isMenu,
@@ -42,6 +42,26 @@ const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose }) => {
           </p>
         </ButtonIcon>
       ))}
+      {!isLoggedIn ? (
+        <ButtonIcon
+          buttonType='button'
+        >
+          {showIcons && <Icon icon={'icon-user'}/>}
+          {!isLoggedIn ? (
+            <p className={style.text}>Login/Register</p>
+          ) : (
+            <p className={style.text}>User</p>
+          )}
+        </ButtonIcon>
+      ) : (
+        <ButtonIcon
+          buttonType='button'
+        >
+          {showIcons && <Icon icon={'icon-logout'} />}
+          <p className={style.text}>Log Out</p>
+        </ButtonIcon>
+      ) }
+      
     </nav>
   );
 }
