@@ -12,6 +12,21 @@
   z-index: 700;
 }
 
+.headerShadow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(16px);
+  padding: 0 $padding-mobile;
+  z-index: 700;
+  box-shadow: 0px 10px 20px -10px #3d3d3d;
+}
+
 .logo {
   width: 150px;
   padding: 5px 0;
@@ -20,8 +35,32 @@
 .iconsBox {
   display: flex;
   gap: 12px;
+
+  @include on-tablet {
+    gap: 18px;
+  }
 }
 
-.btnUser {
+.menu {
+  @include on-desktop {
+    display: none;
+  }
+}
+
+.search {
   display: none;
+
+  @include on-desktop {
+    display: inline-block;
+    font-size: 18px;
+    color: white;
+  }
+}
+
+.nav {
+  display: none; 
+
+   @include on-desktop {
+    display: flex;
+   }
 }
