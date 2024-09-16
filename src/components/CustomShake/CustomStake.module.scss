@@ -63,7 +63,13 @@
   width: fit-content;
   background: linear-gradient(to bottom, #D3E1F5, #B6CEEE);
   border-radius: 8px;
+  color: rgb(8, 21, 40);
   font-weight: 600;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: .5;
+  }
 }
 
 .image {
