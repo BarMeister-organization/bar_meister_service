@@ -3,19 +3,19 @@ import style from './ButtonIcon.module.scss';
 import { Link, Path } from 'react-router-dom';
 
 type Props = {
+  children: React.ReactNode;
   className?: string;
   to?: string | Partial<Path>;
   onClick?: (event: React.MouseEvent) => void;
-  buttonType?: 'button' | 'submit' | 'reset';
-  icon?: string,
+  buttonType?: "button" | "submit" | "reset";
 };
 
 const ButtonIcon: React.FC<Props> = ({ 
+  children,
   className = '',
   to = '',
   onClick = () => {},
   buttonType = 'button',
-  icon = '',
 }) => {
 
   return to ? (
@@ -24,9 +24,9 @@ const ButtonIcon: React.FC<Props> = ({
       className={`${style.btn} ${className}`}
       onClick={onClick}
     >
-      <svg className={style.icon}>
-        <use href={`img/sprite.svg#${icon}`}></use>
-      </svg>
+      <div className={style.children}>
+        {children}
+      </div>
     </Link>
   ) : (
     <button 
@@ -34,9 +34,9 @@ const ButtonIcon: React.FC<Props> = ({
       className={`${style.btn} ${className}`}
       onClick={onClick}
     >
-      <svg className={style.icon}>
-        <use href={`img/sprite.svg#${icon}`}></use>
-      </svg>
+      <div className={style.children}>
+        {children}
+      </div>
     </button>
   );
 }
