@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.relations import SlugRelatedField
 
 from .models import (
     Ingredient,
@@ -7,6 +8,7 @@ from .models import (
     FavouriteCocktails,
     CocktailIngredients,
     Rating,
+    Tag,
 )
 
 
@@ -39,12 +41,23 @@ class CommentListSerializer(CommentSerializer):
     cocktail = serializers.CharField(source="cocktail.name", read_only=True)
 
 
+class TagListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ["id", "photo", "name"]
+
+
 class CocktailSerializer(serializers.ModelSerializer):
     ingredients = CocktailIngredientSerializer(source="cocktail_ingredients", many=True)
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
     author = serializers.CharField(source="author.username", read_only=True)
     comments = CommentListSerializer(many=True, read_only=True)
     average_rating = serializers.SerializerMethodField()
+    tags = SlugRelatedField(
+        many=True,
+        queryset=Tag.objects.all(),
+        slug_field="name",
+    )
 
     class Meta:
         model = CocktailRecipe
@@ -56,6 +69,7 @@ class CocktailSerializer(serializers.ModelSerializer):
             "taste",
             "cocktail_base",
             "group",
+            "tags",
             "how_to_make",
             "description",
             "preparation_time",

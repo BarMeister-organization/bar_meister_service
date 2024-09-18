@@ -6,6 +6,24 @@ from django.utils.text import slugify
 from django.conf import settings
 
 
+def tag_ingredient_file_path(instance, filename):
+    _, extension = os.path.splitext(filename)
+    filename = f"{slugify(instance.name)}-{uuid.uuid4()}{extension}"
+
+    return os.path.join("uploads/tags/", filename)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=255)
+    photo = models.FileField(upload_to=tag_ingredient_file_path, blank=True, null=True)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
 class Ingredient(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -76,6 +94,7 @@ class CocktailRecipe(models.Model):
     taste = models.CharField(max_length=100, choices=TasteChoices.choices)
     cocktail_base = models.CharField(max_length=100, choices=CocktailBaseChoices)
     group = models.CharField(max_length=100, choices=GroupChoices.choices)
+    tags = models.ManyToManyField(Tag, blank=True)
     how_to_make = models.TextField()
     preparation_time = models.IntegerField(help_text="Time in minutes")
     preparation_method = models.CharField(
