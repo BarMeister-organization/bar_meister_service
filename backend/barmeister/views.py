@@ -12,6 +12,7 @@ from .models import (
     Comment,
     FavouriteCocktails,
     Rating,
+    Tag,
 )
 from .permissions import IsOwnerOrReadOnlyAuthor
 from .serializers import (
@@ -23,6 +24,7 @@ from .serializers import (
     CommentListSerializer,
     FavouriteCocktailsListSerializer,
     RatingSerializer,
+    TagListSerializer,
 )
 
 
@@ -30,15 +32,22 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
     queryset = (
         CocktailRecipe.objects.all()
         .select_related("author")
-        .prefetch_related("cocktail_ingredients__ingredient", "comments__author")
+        .prefetch_related(
+            "cocktail_ingredients__ingredient", "comments__author", "tags"
+        )
     )
 
     def get_queryset(self):
         name = self.request.query_params.get("name")
         queryset = self.queryset
+        tag = self.request.query_params.get("tag")
 
         if name:
             queryset = queryset.filter(name__icontains=name)
+            return queryset.distinct()
+
+        if tag:
+            queryset = queryset.filter(tags__name__icontains=tag)
             return queryset.distinct()
         return queryset
 
@@ -48,6 +57,18 @@ class CocktailRecipeViewSet(viewsets.ModelViewSet):
                 name="name",
                 type=str,
                 description="Filter by the name of the cocktail",
+            )
+        ]
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="tags",
+                type=str,
+                description="Filter by the tag",
             )
         ]
     )
@@ -264,3 +285,8 @@ class MyCocktailsViewSet(ReadOnlyModelViewSet):
                 status=status.HTTP_404_NOT_FOUND,
             )
         return super().list(request, *args, **kwargs)
+
+
+class TagsViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagListSerializer

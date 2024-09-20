@@ -6,6 +6,7 @@ from .models import (
     FavouriteCocktails,
     CocktailIngredients,
     Rating,
+    Tag,
 )
 
 
@@ -13,6 +14,7 @@ admin.site.register(Ingredient)
 admin.site.register(Comment)
 admin.site.register(FavouriteCocktails)
 admin.site.register(Rating)
+admin.site.register(Tag)
 
 
 class CocktailIngredientsInline(admin.TabularInline):
