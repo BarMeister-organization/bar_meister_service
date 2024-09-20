@@ -1,5 +1,5 @@
 .custom-shake {
-  background: linear-gradient(to right, #b88039, #fffc25);
+  background: linear-gradient(to right, #f8a843, #fffc25);
   font-family: $main-font-family;
   color: $white-color;
   padding: 40px 24px;
@@ -75,6 +75,9 @@
 .image {
   grid-column: span 6;
   align-self: start;
+  --tw-shadow: 0 6px 12px -2px rgb(0 0 0 / 0.2), 0 3px 6px -3px rgb(0 0 0 / 0.2);
+  --tw-shadow-colored: 0 6px 12px -2px var(--tw-shadow-color), 0 3px 6px -3px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 
   @include on-tablet {
     height: 250px;

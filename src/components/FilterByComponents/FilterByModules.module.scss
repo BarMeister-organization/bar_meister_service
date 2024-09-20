@@ -29,6 +29,20 @@
   overflow-x: scroll;
 }
 
+.filter::-webkit-scrollbar {
+  height: 8px;
+  background-color: $light-color;
+}
+
+.filter::-webkit-scrollbar-thumb {
+  background-color: $black-color;
+  border-radius: 10px;
+}
+
+.filter::-webkit-scrollbar-thumb:hover {
+  background-color: $dark-color;
+}
+
 .firstRow,
 .secondRow {
   display: flex;
