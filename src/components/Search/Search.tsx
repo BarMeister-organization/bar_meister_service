@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import style from './Search.module.scss';
 import Icon from "../shared/Icon/Icon";
 import ButtonIcon from "../shared/ButtonIcon/ButtonIcon";

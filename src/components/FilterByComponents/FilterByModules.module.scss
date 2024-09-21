@@ -1,0 +1,54 @@
+.filter-block {
+  background-color: rgb(247, 247, 248);
+  padding: 90px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title,
+.subtitle {
+  color: rgb(53, 60, 67);
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 16px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  overflow-x: scroll;
+}
+
+.filter::-webkit-scrollbar {
+  height: 8px;
+  background-color: $light-color;
+}
+
+.filter::-webkit-scrollbar-thumb {
+  background-color: $black-color;
+  border-radius: 10px;
+}
+
+.filter::-webkit-scrollbar-thumb:hover {
+  background-color: $dark-color;
+}
+
+.firstRow,
+.secondRow {
+  display: flex;
+  gap: 10px;
+}
+
+.secondRow {
+  margin-left: 90px;
+}

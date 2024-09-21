@@ -1,0 +1,21 @@
+.image {
+  width: 40px;
+  height: 40px;
+}
+
+.ingridient {
+  padding: 20px 5px;
+  min-width: 190px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  --tw-shadow: 0 6px 12px -2px rgb(0 0 0 / 0.2), 0 3px 6px -3px rgb(0 0 0 / 0.2);
+  --tw-shadow-colored: 0 6px 12px -2px var(--tw-shadow-color), 0 3px 6px -3px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 12px;
+}
