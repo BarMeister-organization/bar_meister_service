@@ -1,0 +1,121 @@
+.footer {
+  background: linear-gradient(to right, #F3F7FC, #F4F1FE);
+  padding: 60px 20px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.image {
+  width: 18px;
+  height: 18px;
+  transition: filter .3s;
+
+  &:hover {
+    filter: invert(75%) sepia(80%) saturate(600%) hue-rotate(-15deg) brightness(120%) contrast(100%);
+  }
+
+  @include on-tablet {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.item {
+  &--links {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      content: '';
+      display: block;
+      width: 100%;
+      background-color: $black-color;
+      height: 1px;
+      bottom: -5px;
+      transform: scale(0);
+      transform-origin: left;
+      transition: transform .3s;
+    }
+
+    &:hover {
+      &::before {
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+.button {
+  background-color: $black-color;
+  position: relative;
+  color: $white-color;
+  padding: 10px 40px;
+  border-radius: 10px;
+  transition: background-color .3s, color .3s;
+  border: 1px solid $black-color;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &:hover {
+    background-color: $white-color;
+    color: $black-color;
+
+    & img {
+      filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+    }
+  }
+
+  @include on-desktop {
+    padding: 15px 60px;
+  }
+}
+
+.button img {
+  width: 18px;
+  height: 18px;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+  transition: filter .3s;
+}
+
+.navigation,
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.navigation {
+  gap: 30px;
+
+  @include on-desktop {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.links {
+  gap: 10px;
+
+  @include on-desktop {
+    flex-direction: row;
+    gap: 20px;
+  }
+}
+
+.socials {
+  display: flex;
+
+  @include on-tablet {
+    gap: 10px;
+  }
+}
+
+.copyright {
+  text-align: center;
+  font-size: 12px;
+  color: rgb(105 120 134);
+}

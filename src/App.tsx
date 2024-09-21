@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Menu from './components/Menu/Menu';
 import Modal from './components/shared/Modal/Modal';
 import Search from './components/Search/Search';
+import { Footer } from './components/Footer';
 
 function App() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -45,6 +46,7 @@ function App() {
       <main>
         <Outlet />
       </main>
+      <Footer />
     </>
   )
 }
