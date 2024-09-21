@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from './Search.module.scss';
 import Icon from "../shared/Icon/Icon";
 import ButtonIcon from "../shared/ButtonIcon/ButtonIcon";
@@ -15,6 +15,8 @@ const getStyledLink = ({ isActive }: { isActive: boolean }) =>
   });
 
 const Search: React.FC<Props> = ({ onClose }) => {
+  // const [value, setValue] = useEffect('');
+
   return (
     <div className={style.box}>
       <ButtonIcon
@@ -28,9 +30,10 @@ const Search: React.FC<Props> = ({ onClose }) => {
         <Icon icon={'icon-search'} color={'#000000'} />
         <input 
           type="text" 
+          // value={value}
           className={style.input}
           autoFocus
-          />
+        />
       </div>
       <h3 className={style.pages}>Pages</h3>
       <nav className={style.nav}>
@@ -38,7 +41,7 @@ const Search: React.FC<Props> = ({ onClose }) => {
           {({ isActive }) => (
             <>
               <Icon icon={'icon-home'} color={isActive ? '#ffffff' : '#353c43'} />
-              <p>Home</p>
+              <span>Home</span>
             </>
           )}
         </NavLink>
@@ -46,7 +49,7 @@ const Search: React.FC<Props> = ({ onClose }) => {
           {({ isActive }) => (
             <>
               <Icon icon={'icon-glass'} color={isActive ? '#ffffff' : '#353c43'} />
-              <p>Cocktails</p>
+              <span>Cocktails</span>
             </>
           )}
         </NavLink>
@@ -54,7 +57,7 @@ const Search: React.FC<Props> = ({ onClose }) => {
           {({ isActive }) => (
             <>
               <Icon icon={'icon-beaker'} color={isActive ? '#ffffff' : '#353c43'} />
-              <p>My Bar</p>
+              <span>My Bar</span>
             </>
           )}
         </NavLink>

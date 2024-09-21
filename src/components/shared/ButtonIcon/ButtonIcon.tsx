@@ -24,9 +24,7 @@ const ButtonIcon: React.FC<Props> = ({
       className={`${style.btn} ${className}`}
       onClick={onClick}
     >
-      <div className={style.children}>
-        {children}
-      </div>
+      {children}
     </Link>
   ) : (
     <button 
@@ -34,9 +32,7 @@ const ButtonIcon: React.FC<Props> = ({
       className={`${style.btn} ${className}`}
       onClick={onClick}
     >
-      <div className={style.children}>
-        {children}
-      </div>
+      {children}
     </button>
   );
 }

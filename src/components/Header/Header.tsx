@@ -33,7 +33,7 @@ const Header: React.FC<Props> = ({
           onClick={openModal}
           >
           <Icon icon={'icon-search'} />
-          <p className={style.search}>Search</p>
+          <span className={style.search}>Search</span>
         </ButtonIcon>
         <div className={style.menu}>
           {!isOpenMenu ? (

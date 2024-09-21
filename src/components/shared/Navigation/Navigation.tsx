@@ -33,13 +33,13 @@ const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose }) => {
       {navigationItems.map((item, index) => (
         <ButtonIcon key={index} to={item.to}>
           {showIcons && <Icon icon={item.icon} />}
-          <p 
+          <span 
             className={classNames(style.text, {
               [style.textMenu]: isMenu,
             })}
           >
             {item.label}
-          </p>
+          </span>
         </ButtonIcon>
       ))}
       {!isLoggedIn ? (
@@ -48,9 +48,9 @@ const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose }) => {
         >
           {showIcons && <Icon icon={'icon-user'}/>}
           {!isLoggedIn ? (
-            <p className={style.text}>Login/Register</p>
+            <span className={style.text}>Login/Register</span>
           ) : (
-            <p className={style.text}>User</p>
+            <span className={style.text}>User</span>
           )}
         </ButtonIcon>
       ) : (
@@ -58,7 +58,7 @@ const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose }) => {
           buttonType='button'
         >
           {showIcons && <Icon icon={'icon-logout'} />}
-          <p className={style.text}>Log Out</p>
+          <span className={style.text}>Log Out</span>
         </ButtonIcon>
       ) }
       
