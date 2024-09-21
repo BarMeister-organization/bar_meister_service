@@ -1,7 +1,8 @@
 import React from "react";
 import styles from './Footer.module.scss';
 import { socials } from "../../utils/Footer/socials";
-import heart from '/bar_meister_service/public/img/footer/heart.svg';
+// import heart from '/bar_meister_service/public/img/footer/heart.svg';
+import heart from '/img/footer/heart.svg';
 
 export const Footer: React.FC = () => {
   return (
