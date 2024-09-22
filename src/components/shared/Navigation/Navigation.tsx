@@ -12,7 +12,7 @@ type Props = {
 };
 
 const navigationItems = [
-  { to: "/coctails", icon: 'icon-glass', label: 'Cocktails' },
+  { to: "/cocktails", icon: 'icon-glass', label: 'Cocktails' },
   { to: "/bar", icon: 'icon-beaker', label: 'My Bar' },
   { to: "/favorites", icon: 'icon-heart', label: 'Favorites' },
 ];
@@ -31,7 +31,11 @@ const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose }) => {
       </Link>
       )}
       {navigationItems.map((item, index) => (
-        <ButtonIcon key={index} to={item.to}>
+        <ButtonIcon 
+          key={index} 
+          to={item.to} 
+          onClick={onClose}
+        >
           {showIcons && <Icon icon={item.icon} />}
           <span 
             className={classNames(style.text, {
@@ -45,6 +49,7 @@ const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose }) => {
       {!isLoggedIn ? (
         <ButtonIcon
           buttonType='button'
+          onClick={onClose}
         >
           {showIcons && <Icon icon={'icon-user'}/>}
           {!isLoggedIn ? (

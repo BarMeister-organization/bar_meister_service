@@ -59,6 +59,10 @@
   @include on-tablet {
     font-size: 72px;
   }
+
+  @include on-desktop {
+    font-size: 80px;
+  }
 }
 
 .button {
