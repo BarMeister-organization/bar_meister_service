@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import App from "./App";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
-import CocktailsPage from "./pages/CocktailsPage";
+import CocktailsPage from "./pages/CocktailsPage/CocktailsPage";
 import RecipePage from "./pages/RecipePage";
 import MyBarPage from "./pages/MyBarPage";
 import FavoritesPage from "./pages/FavoritesPage";
