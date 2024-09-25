@@ -107,8 +107,25 @@ table {
 
 .section {
   padding: $padding-section-mobile 0;
+
+  @include on-tablet {
+    padding: $padding-section-tablet 0;
+  }
 }
 
 .container {
   padding: 0 $padding-mobile;
+
+  @include on-tablet {
+    padding: 0 $padding-tablet;
+  }
+
+  @include on-desktop {
+    padding: 0 $padding-desktop;
+  }
+}
+
+.error {
+  font-size: 18px;
+  line-height: 1.2;
 }

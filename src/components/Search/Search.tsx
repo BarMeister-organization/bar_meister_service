@@ -4,6 +4,9 @@ import Icon from "../shared/Icon/Icon";
 import ButtonIcon from "../shared/ButtonIcon/ButtonIcon";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { selectSearchFilter } from "../../redux/searchFilter/selectors";
+import { changeFilter } from "../../redux/searchFilter/slice";
 
 type Props = {
   onClose: () => void;
@@ -15,7 +18,13 @@ const getStyledLink = ({ isActive }: { isActive: boolean }) =>
   });
 
 const Search: React.FC<Props> = ({ onClose }) => {
-  // const [value, setValue] = useEffect('');
+  const filterValue = useAppSelector(selectSearchFilter);
+  const dispatch = useAppDispatch();
+
+  const selectCoctailFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value.trim();
+    dispatch(changeFilter(value));
+  }
 
   return (
     <div className={style.box}>
@@ -30,8 +39,9 @@ const Search: React.FC<Props> = ({ onClose }) => {
         <Icon icon={'icon-search'} color={'#000000'} />
         <input 
           type="text" 
-          // value={value}
+          value={filterValue.toString()}
           className={style.input}
+          onChange={selectCoctailFilter}
           autoFocus
         />
       </div>
