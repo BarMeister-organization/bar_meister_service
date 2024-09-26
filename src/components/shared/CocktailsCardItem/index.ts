@@ -1,0 +1,1 @@
+export * from './CocktailsCardItem.module.scss';
