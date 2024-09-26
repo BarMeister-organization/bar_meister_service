@@ -39,7 +39,7 @@ const Search: React.FC<Props> = ({ onClose }) => {
         <Icon icon={'icon-search'} color={'#000000'} />
         <input 
           type="text" 
-          value={filterValue.toString()}
+          value={filterValue ? filterValue.toString() : ''}
           className={style.input}
           onChange={selectCoctailFilter}
           autoFocus
