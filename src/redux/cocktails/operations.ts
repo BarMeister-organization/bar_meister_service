@@ -14,8 +14,8 @@ export const fetchCocktails = createAsyncThunk(
         }
       }
     );
-    console.log('cocktails:', data);
-      return data;
+    console.log('cocktails:', data.results);
+      return data.results;
     } catch (err) {
       return thunkAPI.rejectWithValue((err as Error).message);
     }

@@ -5,6 +5,7 @@ import { fetchCocktails } from "../../redux/cocktails/operations";
 import { selectVisibleCoctails } from "../../redux/searchFilter/selectors";
 import Loader from "../../components/shared/Loader/Loader";
 import style from './Cocktails.module.scss';
+import CocktailsList from "../../components/CocktailsList/CocktailsList";
 
 const CocktailsPage = () => {
   const cocktails = useAppSelector(selectVisibleCoctails);
@@ -21,11 +22,7 @@ const CocktailsPage = () => {
       <div className="container">
         {loading && <Loader />}
         {error && !loading && <p className="error">Can't load cocktails at the moment, please try again later</p>}
-        <ul>
-          {cocktails.map(cocktail => (
-            <li key={cocktail.id}>{cocktail.name}</li>
-          ))}
-        </ul>
+        {!loading && !error && !!cocktails.length && <CocktailsList cocktails={cocktails} />}
       </div>
     </div>
   );

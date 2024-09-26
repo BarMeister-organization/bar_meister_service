@@ -5,9 +5,9 @@ import { selectCocktails } from "../cocktails/selectors";
 export const selectSearchFilter = (state: RootState) => state.search.value;
 export const selectVisibleCoctails = createSelector(
   [selectCocktails, selectSearchFilter],
-  (cocktails, filter) => {
+  (cocktails, search) => {
     return cocktails.filter(cocktail => 
-      cocktail.name.toLowerCase().includes(filter.toLowerCase())
+      cocktail.name.toLowerCase().includes(search.toLowerCase())
     )
   }
 );
