@@ -1,0 +1,18 @@
+.list {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+}
+
+.list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: $light-grey-color;
+  border-radius: 10px;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+  background-color: $dark-color;
+}

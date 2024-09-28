@@ -1,0 +1,25 @@
+.wrapper {
+  background-color: $white-color;
+  overflow: auto;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include on-desktop {
+    gap: 30px;
+  }
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 0.03rem;
+
+  @include on-desktop {
+    font-size: 36px;
+  }
+}
+

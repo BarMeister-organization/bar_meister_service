@@ -119,10 +119,6 @@ table {
   @include on-tablet {
     padding: 0 $padding-tablet;
   }
-
-  @include on-desktop {
-    padding: 0 $padding-desktop;
-  }
 }
 
 .error {

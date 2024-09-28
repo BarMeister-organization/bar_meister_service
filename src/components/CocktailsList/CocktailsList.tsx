@@ -1,6 +1,7 @@
 import React from "react";
-import { Cocktail } from "../../types/cocktail";
+import style from './CocktailsList.module.scss';
 import CocktailItem from "../CocktailItem/CocktailItem";
+import { Cocktail } from "../../types/cocktail";
 
 type Props = {
   cocktails: Cocktail[];
@@ -8,9 +9,9 @@ type Props = {
 
 const CocktailsList: React.FC<Props> = ({ cocktails }) => {
   return (
-    <ul>
+    <ul className={style.list}>
       {cocktails.map(cocktail => (
-        <CocktailItem cocktail={cocktail} />
+        <CocktailItem cocktail={cocktail} key={cocktail.id} />
       ))}
     </ul>
   );
