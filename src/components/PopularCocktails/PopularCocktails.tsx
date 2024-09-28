@@ -1,5 +1,5 @@
 import style from './PopularCocktails.module.scss';
-import CocktailsCardList from '../shared/CocktailsCardList/CocktailsCardList';
+import CocktailsList from '../CocktailsList/CocktailsList';
 
 const data = [
   {id: 0, name: 'Mojito', photo: 'img/cocktails/mojito.jpg'},
@@ -11,7 +11,7 @@ const PopularCocktails = () => {
     <div className={`section ${style.wrapper}`}>
       <div className={`container ${style.box}`}>
         <h2 className={style.title}>We're currently drinking</h2>
-          <CocktailsCardList coctailsCardList={data} />
+          <CocktailsList cocktails={data} />
       </div>
     </div>
   );
