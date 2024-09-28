@@ -47,6 +47,13 @@
   }
 }
 
+.heart-icon {
+  width: 18px;
+  height: 18px;
+  transition: fill .3s;
+  fill: white;
+}
+
 .button {
   background-color: $black-color;
   position: relative;
@@ -63,8 +70,8 @@
     background-color: $white-color;
     color: $black-color;
 
-    & img {
-      filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+    .heart-icon {
+      fill: $black-color;
     }
   }
 
@@ -73,23 +80,16 @@
   }
 }
 
-.button img {
-  width: 18px;
-  height: 18px;
-  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
-  transition: filter .3s;
-}
-
 .navigation,
 .links {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 20px;
 }
 
 .navigation {
   gap: 30px;
+  padding: 0 20px;
 
   @include on-desktop {
     flex-direction: row;
@@ -110,7 +110,7 @@
   display: flex;
 
   @include on-tablet {
-    gap: 10px;
+    gap: 40px;
   }
 }
 

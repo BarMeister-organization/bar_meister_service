@@ -1,22 +1,22 @@
 export const socials = [
   {
     socialName: 'facebook',
-    socialImage: 'img/footer/facebookIcon.svg',
+    socialImage: 'img/sprite.svg#icon-facebook2',
     socialLink: '..//sadasd',
   },
   {
     socialName: 'twitter',
-    socialImage: 'img/footer/twitterIcon.svg',
+    socialImage: 'img/sprite.svg#icon-twitter',
     socialLink: '..//sadasd',
   },
   {
     socialName: 'instagram',
-    socialImage: 'img/footer/instagramIcon.svg',
+    socialImage: 'img/sprite.svg#icon-instagram',
     socialLink: '..//sadasd',
   },
   {
     socialName: 'pinterest',
-    socialImage: 'img/footer/pinterestIcon.svg',
+    socialImage: 'img/sprite.svg#icon-pinterest2',
     socialLink: '..//sadasd',
   },
 ];

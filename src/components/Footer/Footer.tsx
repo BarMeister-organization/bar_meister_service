@@ -1,8 +1,6 @@
 import React from "react";
 import styles from './Footer.module.scss';
 import { socials } from "../../utils/Footer/socials";
-// import heart from '/bar_meister_service/public/img/footer/heart.svg';
-import heart from '/img/footer/heart.svg';
 
 export const Footer: React.FC = () => {
   return (
@@ -35,13 +33,17 @@ export const Footer: React.FC = () => {
           {socials.map(social => (
             <li key={social.socialName} className={styles.item}>
               <a href={social.socialLink} className={`${styles.links} ${styles[`link--${social.socialName}`]}`}>
-                <img className={styles.image} src={social.socialImage} alt="icon" />
+                <svg className={styles.image}>
+                  <use href={social.socialImage}></use>
+                </svg>
               </a>
             </li>
           ))}
         </ul>
         <button type="button" className={styles.button}>
-          <img src={heart} alt="heart" />
+          <svg className={styles['heart-icon']}>
+            <use href="img/sprite.svg#icon-footer-heart"></use>
+          </svg>
           <p>Support us</p>
         </button>
       </nav>
