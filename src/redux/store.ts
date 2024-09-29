@@ -1,16 +1,34 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
+import {
+  persistStore, 
+  FLUSH, 
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER, 
+} from 'redux-persist';
 import searchReducer from './searchFilter/slice';
 import cocktailsReducer from './cocktails/slice';
+import { persistedAuthReducer } from './auth/slice';
 
-const rootReducer = combineReducers({
-  search: searchReducer,
-  cocktails: cocktailsReducer,
-});
+
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    search: searchReducer,
+    cocktails: cocktailsReducer,
+    auth: persistedAuthReducer,
+  },
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
+
+export const persistor = persistStore(store);
 
 export default store;
 

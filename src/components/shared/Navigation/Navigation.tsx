@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ButtonIcon from '../ButtonIcon/ButtonIcon';
 import Icon from '../Icon/Icon';
 import style from './Navigation.module.scss';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { ModalType } from '../../../types/modalType';
 
 type Props = {
   showIcons: boolean; 
   isMenu?: boolean;
   onClose?: () => void;
+  isLoggedIn?: boolean;
+  openModal: (type: ModalType) => void;
 };
 
 const navigationItems = [
@@ -17,8 +20,7 @@ const navigationItems = [
   { to: "/favorites", icon: 'icon-heart', label: 'Favorites' },
 ];
 
-const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose, isLoggedIn, openModal }) => {
 
   return (
     <nav className={classNames(style.nav, {
@@ -49,7 +51,7 @@ const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose }) => {
       {!isLoggedIn ? (
         <ButtonIcon
           buttonType='button'
-          onClick={onClose}
+          onClick={() => openModal("user")}
         >
           {showIcons && <Icon icon={'icon-user'}/>}
           {!isLoggedIn ? (

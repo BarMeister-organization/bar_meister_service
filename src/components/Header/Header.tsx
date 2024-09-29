@@ -6,17 +6,20 @@ import React from "react";
 import classNames from "classnames";
 import Icon from "../shared/Icon/Icon";
 import Navigation from "../shared/Navigation/Navigation";
+import { ModalType } from "../../types/modalType";
 
 type Props = {
   isOpenMenu: boolean;
-  openModal: () => void;
+  openModal: (type: ModalType) => void;
   onToggle: () => void;
+  isLoggedIn: boolean;
 };
 
 const Header: React.FC<Props> = ({ 
   isOpenMenu,
   openModal,
   onToggle,
+  isLoggedIn,
 }) => {
 
   return (
@@ -30,7 +33,7 @@ const Header: React.FC<Props> = ({
       <div className={style.iconsBox}>
         <ButtonIcon 
           buttonType={'button'}
-          onClick={openModal}
+          onClick={() => openModal("search")}
           >
           <Icon icon={'icon-search'} />
           <span className={style.search}>Search</span>
@@ -54,7 +57,7 @@ const Header: React.FC<Props> = ({
         </div>
 
         <div className={style.nav}>
-          <Navigation showIcons={true} />
+          <Navigation showIcons={true} isLoggedIn={isLoggedIn} openModal={openModal} />
         </div>
 
       </div>
