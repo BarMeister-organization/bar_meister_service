@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {
   persistStore, 
-  persistReducer, 
   FLUSH, 
   REHYDRATE,
   PAUSE,
@@ -9,20 +8,10 @@ import {
   PURGE,
   REGISTER, 
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import searchReducer from './searchFilter/slice';
 import cocktailsReducer from './cocktails/slice';
-import authReducer, { AuthSlice } from './auth/slice';
-import { PersistPartial } from 'redux-persist/es/persistReducer';
+import { persistedAuthReducer } from './auth/slice';
 
-const authConfig = {
-  key: 'auth',
-  storage,
-  whitelist: ['token'],
-  debug: true,
-};
-
-const persistedAuthReducer = persistReducer<AuthSlice & PersistPartial>(authConfig, authReducer);
 
 
 const store = configureStore({
