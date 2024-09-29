@@ -1,0 +1,42 @@
+[
+{
+    "model": "user.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$37qpEDGInd7cGUY4vZ8ghM$5GkZo3xYvXslUy5BlEezwQNyt3McgGdtCPuleRkMY24=",
+        "last_login": "2024-09-11T18:05:34.912Z",
+        "is_superuser": true,
+        "first_name": "Admin",
+        "last_name": "Admin",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-09-11T18:03:55.607Z",
+        "username": "admin",
+        "email": "admin@admin.com",
+        "profile_picture": "",
+        "birth_date": "1990-06-13",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "user.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$2A8Oy0w7yEeOHKd440znJl$rcBVbKMNQkFYH9hE1NAbS+JBVttlCphsz8sKV8rAv8k=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Alla",
+        "last_name": "Kuksa",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-09-11T18:18:38.220Z",
+        "username": "AllaKuksa",
+        "email": "alla.kuksa92@gmail.com",
+        "profile_picture": "",
+        "birth_date": "1992-06-13",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
