@@ -8,8 +8,7 @@ export const setAuthHeaders = (token: string | number | null) => {
   instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-export const cleanAuthHeader = () => {
+export const clearAuthHeader = () => {
   instance.defaults.headers.common.Authorization = '';
 };
-
 

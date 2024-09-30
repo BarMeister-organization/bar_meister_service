@@ -40,34 +40,14 @@
   letter-spacing: 0.02em;
 }
 
-.form {
+.nav {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  align-self: center;
+  gap: 10px;
 }
 
-.label {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.input {
-  border: 1px solid $border-color;
-  border-radius: 5px;
-  padding: 7px 12px;
-  font-size: 16px;
+.linkBtn {
+  font-size: 20px;
   color: $orange-color;
-}
-
-.button {
-  text-transform: uppercase;
-  color: $light-color;
-  background-color: $orange-color;
-  padding: 8px;
-  font-size: 18px;
-  border-radius: 10px;
-  border: 1px solid $orange-color;
-
-  @include hover(color, $dark-color, background-color, transparent);
 }

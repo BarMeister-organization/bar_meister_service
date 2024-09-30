@@ -12,8 +12,6 @@ import searchReducer from './searchFilter/slice';
 import cocktailsReducer from './cocktails/slice';
 import { persistedAuthReducer } from './auth/slice';
 
-
-
 const store = configureStore({
   reducer: {
     search: searchReducer,

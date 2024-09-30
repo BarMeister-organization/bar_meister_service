@@ -5,6 +5,9 @@ import style from './Navigation.module.scss';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { ModalType } from '../../../types/modalType';
+import { useAppDispatch } from '../../../redux/hooks';
+import { logout } from '../../../redux/auth/operations';
+import { persistor } from '../../../redux/store';
 
 type Props = {
   showIcons: boolean; 
@@ -21,6 +24,13 @@ const navigationItems = [
 ];
 
 const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose, isLoggedIn, openModal }) => {
+  const dispatch = useAppDispatch();
+  
+  const logOut = () => {
+    dispatch(logout()).then(() => {
+      persistor.purge();
+    });
+  };
 
   return (
     <nav className={classNames(style.nav, {
@@ -63,6 +73,7 @@ const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose, isLoggedIn, o
       ) : (
         <ButtonIcon
           buttonType='button'
+          onClick={logOut}
         >
           {showIcons && <Icon icon={'icon-logout'} />}
           <span className={style.text}>Log Out</span>

@@ -5,7 +5,7 @@ import ButtonIcon from "../shared/ButtonIcon/ButtonIcon";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { selectSearchFilter } from "../../redux/searchFilter/selectors";
+import { selectSearchFilter, selectVisibleCoctails } from "../../redux/searchFilter/selectors";
 import { changeFilter } from "../../redux/searchFilter/slice";
 
 type Props = {
@@ -19,6 +19,7 @@ const getStyledLink = ({ isActive }: { isActive: boolean }) =>
 
 const Search: React.FC<Props> = ({ onClose }) => {
   const filterValue = useAppSelector(selectSearchFilter);
+  // const visibleCocktails = useAppSelector(selectVisibleCoctails);
   const dispatch = useAppDispatch();
 
   const selectCoctailFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
