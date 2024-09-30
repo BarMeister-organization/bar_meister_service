@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { selectAuthIsLoggedIn, selectAuthIsRefreshing } from './redux/auth/selectors';
 import { refresh } from './redux/auth/operations';
 import Loader from './components/shared/Loader/Loader';
+import store from './redux/store';
 
 function App() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -22,7 +23,10 @@ function App() {
   const [modalType, setModalType] = useState<ModalType | null>(null);
 
   useEffect(() => {
-    dispatch(refresh());
+    const state = store.getState().auth;
+    if (state.token) {
+      dispatch(refresh());
+    }
   }, [dispatch]);
 
   const openModal = (type: ModalType) => {
@@ -56,7 +60,7 @@ function App() {
 
       {isOpenModal && modalType === "user" && (
         <Modal onClose={closeModal}>
-          <UserModal onClose={closeModal} isLoggedIn={isLoggedIn} />
+          <UserModal onClose={closeModal} />
         </Modal>
       )}
 

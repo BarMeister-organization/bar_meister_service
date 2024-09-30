@@ -1,19 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import style from './UserModal.module.scss'; 
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import Icon from "../Icon/Icon";
+import LoginForm from "../../LoginForm/LoginForm";
+import RegistrationForm from "../../RegistrationForm/RegistrationForm";
 
 type Props = {
   onClose: () => void;
-  isLoggedIn: boolean;
 }
 
-const UserModal: React.FC<Props> = ({ onClose, isLoggedIn }) => {
+const UserModal: React.FC<Props> = ({ onClose }) => {
+  const [isLoginMode, setIsLoginMode] = useState(false);
 
-  // const handleSubmit = (value, action);
+  const handleToggleMode = () => {
+    setIsLoginMode((prev) => !prev);
+  };
 
+  const handleModalClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+  
   return (
-    <div className={style.box}>
+    <div className={style.box} onClick={handleModalClick}>
       <ButtonIcon
         buttonType="button"
         onClick={onClose}
@@ -22,71 +30,20 @@ const UserModal: React.FC<Props> = ({ onClose, isLoggedIn }) => {
         <Icon icon={'icon-close'} color={'#000000'} />
       </ButtonIcon>
       <div className={style.contentBox}>
-        {isLoggedIn ? (
-          <h2 className={style.title}>Log in</h2>
+      <h2 className={style.title}>{isLoginMode ? 'Log in' : 'Register'}</h2>
+
+        {isLoginMode ? (
+          <LoginForm onClose={onClose} />
         ) : (
-          <h2 className={style.title}>Register</h2>
+          <RegistrationForm onClose={onClose} />
         )}
 
-      <form className={style.form}>
-
-      {isLoggedIn ? (
-        <div></div>
-      ) : (
-        <>
-          <label htmlFor="username" className={style.label}>
-            Username
-            <input 
-              name="username"
-              id="username"
-              type="text" 
-              className={style.input}
-              // value={}
-              placeholder="Please enter your username"
-              />
-          </label>
-          <label htmlFor="email" className={style.label}>
-            Email
-            <input 
-              name="email"
-              id="email"
-              type="email" 
-              // value={}
-              className={style.input}
-              placeholder="Please enter your email"
-              />
-          </label>
-          <label htmlFor="birth" className={style.label}>
-            Birth Date
-            <input 
-              name="birth"
-              id="birth"
-              type="date" 
-              className={style.input}
-              />
-          </label>
-          <label htmlFor="password" className={style.label}>
-            Password
-            <input 
-              name="password"
-              id="password"
-              type="text" 
-              // value={}
-              className={style.input}
-              />
-          </label>
-        </>
-      )}
-
-        <button 
-          type="submit" 
-          className={style.button} 
-          onClick={onClose}
-        >
-          {isLoggedIn ? 'Log In' : 'Submit'}
-        </button>
-      </form>
-
+        <div className={style.nav}>
+          <p>{isLoginMode ? "Don't have an account?" : 'Already have an account?'}</p>
+          <p className={style.linkBtn} onClick={handleToggleMode}>
+            {isLoginMode ? 'Register' : 'Log in'}
+          </p>
+        </div>
 
       </div>
     </div>

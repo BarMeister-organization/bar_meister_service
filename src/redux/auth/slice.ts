@@ -1,14 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { login, logout, refresh, register } from "./operations";
 import storage from "redux-persist/lib/storage";
-import persistReducer from "redux-persist/es/persistReducer";
-
-type User = {
-  username: string | null;
-  email: string | null;
-  password: string | number | null;
-  birth_date: string | null;
-};
+import { persistReducer } from 'redux-persist';
+import { User } from "../../types/user";
 
 export type AuthSlice = {
   user: User;
@@ -51,10 +45,11 @@ const authSlice = createSlice ({
     .addCase(login.pending, (state) => {
       state.error = null;
     })
-    .addCase(login.fulfilled, (state, action: PayloadAction<{ token: string; user: User }>) => {
+    .addCase(login.fulfilled, (state, action: PayloadAction<{ refresh: string; user: User }>) => {
       state.isLoggedIn = true;
-      state.token = action.payload.token;
+      state.token = action.payload.refresh;
       state.user = action.payload.user;
+      console.log('Login fulfilled, token:', action.payload.refresh);
     })
     .addCase(login.rejected, (state, action) => {
       state.error = action.error.message || "Login failed";
@@ -88,9 +83,9 @@ const authSlice = createSlice ({
 const authReducer =  authSlice.reducer;
 
 const authConfig = {
-  key: 'auth',
+  key: "auth",
   storage,
-  whitelist: ['token'],
+  whitelist: ["token", "user"],
 };
 
 export const persistedAuthReducer = persistReducer<AuthSlice>(authConfig, authReducer);
