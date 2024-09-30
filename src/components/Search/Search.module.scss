@@ -57,3 +57,16 @@
   color: $white-color;
   border-radius: 2px;
 }
+
+.list {
+  overflow: scroll;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 0;
+
+  @include hover(background-color, $light-grey-color);
+}

@@ -13,6 +13,8 @@ import { selectAuthIsLoggedIn, selectAuthIsRefreshing } from './redux/auth/selec
 import { refresh } from './redux/auth/operations';
 import Loader from './components/shared/Loader/Loader';
 import store from './redux/store';
+import { selectVisibleCoctails } from './redux/searchFilter/selectors';
+import { fetchCocktails } from './redux/cocktails/operations';
 
 function App() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -21,6 +23,11 @@ function App() {
   const isRefreshing = useAppSelector(selectAuthIsRefreshing);
   const dispatch = useAppDispatch();
   const [modalType, setModalType] = useState<ModalType | null>(null);
+  const cocktails = useAppSelector(selectVisibleCoctails);
+
+  useEffect(() => {
+    dispatch(fetchCocktails({}));
+  }, [dispatch]);
 
   useEffect(() => {
     const state = store.getState().auth;
@@ -54,7 +61,7 @@ function App() {
 
       {isOpenModal && modalType === "search" && (
         <Modal onClose={closeModal}>
-          <Search onClose={closeModal} />
+          <Search cocktails={cocktails} onClose={closeModal} />
         </Modal>
       )}
 

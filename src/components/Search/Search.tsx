@@ -5,10 +5,12 @@ import ButtonIcon from "../shared/ButtonIcon/ButtonIcon";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { selectSearchFilter, selectVisibleCoctails } from "../../redux/searchFilter/selectors";
+import { selectSearchFilter } from "../../redux/searchFilter/selectors";
 import { changeFilter } from "../../redux/searchFilter/slice";
+import { Cocktail } from "../../types/cocktail";
 
 type Props = {
+  cocktails: Cocktail[];
   onClose: () => void;
 }
 
@@ -17,15 +19,14 @@ const getStyledLink = ({ isActive }: { isActive: boolean }) =>
     [style.isActive]: isActive
   });
 
-const Search: React.FC<Props> = ({ onClose }) => {
+const Search: React.FC<Props> = ({ cocktails, onClose }) => {
   const filterValue = useAppSelector(selectSearchFilter);
-  // const visibleCocktails = useAppSelector(selectVisibleCoctails);
   const dispatch = useAppDispatch();
 
   const selectCoctailFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.trim();
     dispatch(changeFilter(value));
-  }
+  };
 
   return (
     <div className={style.box}>
@@ -73,7 +74,13 @@ const Search: React.FC<Props> = ({ onClose }) => {
           )}
         </NavLink>
       </nav>
-      <ul>
+      <ul className={style.list}>
+        {cocktails.slice(0, 20).map((cocktail) => (
+          <li key={cocktail.id} className={style.item}>
+            <Icon icon={'icon-drink'} color={'#353c43'} />
+            <span>{cocktail.name}</span>
+          </li> 
+        ))}
       </ul>
     </div>
   );
