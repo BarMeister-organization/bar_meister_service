@@ -71,7 +71,6 @@ class CocktailSerializer(serializers.ModelSerializer):
             "group",
             "tags",
             "how_to_make",
-            "description",
             "preparation_time",
             "preparation_method",
             "difficulty",
