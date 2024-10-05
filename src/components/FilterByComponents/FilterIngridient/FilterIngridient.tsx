@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './FilterIngridient.module.scss';
 import { Ingridients } from '../../../types/componentsType';
+import { Link } from 'react-router-dom';
 
 interface Props {
   ingridient: Ingridients;
@@ -8,9 +9,11 @@ interface Props {
 
 export const FilterIngridient: React.FC<Props> = ({ ingridient }) => {
   return (
-    <a href='' className={style.ingridient}>
-      <img className={style.image} src={ingridient.componentImage} alt="shake-image" />
-      <p className={style.title}>{ingridient.componentName}</p>
-    </a>
+    <Link to={`/cocktails-with-ingridients/${ingridient.ingridientName}`} className={style.ingridient}>
+      <svg className={style.image}>
+        <use href={ingridient.componentImage}></use>
+      </svg>
+      <p className={style.title}>{`${ingridient.componentName} cocktails`}</p>
+    </Link>
   );
 };
