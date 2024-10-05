@@ -11,7 +11,7 @@ const CocktailsList: React.FC<Props> = ({ cocktails }) => {
   return (
     <ul className={style.list}>
       {cocktails.map(cocktail => (
-        <CocktailItem cocktail={cocktail} key={cocktail.id} />
+        <CocktailItem cocktail={cocktail} key={cocktail.id} isCocktailsPage={false} />
       ))}
     </ul>
   );

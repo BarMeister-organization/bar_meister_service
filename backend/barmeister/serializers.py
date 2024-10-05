@@ -71,7 +71,6 @@ class CocktailSerializer(serializers.ModelSerializer):
             "group",
             "tags",
             "how_to_make",
-            "description",
             "preparation_time",
             "preparation_method",
             "difficulty",
@@ -82,7 +81,7 @@ class CocktailSerializer(serializers.ModelSerializer):
             "comments",
         ]
 
-    def get_average_rating(self, obj):
+    def get_average_rating(self, obj) -> int:
         ratings = Rating.objects.filter(cocktail=obj)
         if len(ratings) > 0:
             sum_of_stars = sum(rating.stars for rating in ratings)
@@ -116,7 +115,7 @@ class CocktailImageSerializer(serializers.ModelSerializer):
 class CocktailListSerializer(CocktailSerializer):
     class Meta:
         model = CocktailRecipe
-        fields = ["id", "name", "photo"]
+        fields = ["id", "name", "photo", "cocktail_type"]
 
 
 class FavouriteCocktailsSerializer(serializers.ModelSerializer):
