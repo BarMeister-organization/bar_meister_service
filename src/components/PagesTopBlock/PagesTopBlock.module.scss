@@ -1,0 +1,33 @@
+.content {
+  position: relative;
+}
+
+.title {
+  position: absolute;
+  color: $dark-color;
+  font-weight: 700;
+  background-color: white;
+  padding: 16px 24px;
+  border-radius: 5px;
+  font-size: 36px;
+  bottom: -40px;
+  left: 20px;
+  --tw-shadow: 0 6px 12px -2px rgb(0 0 0 / 0.2), 0 3px 6px -3px rgb(0 0 0 / 0.2);
+  --tw-shadow-colored: 0 6px 12px -2px var(--tw-shadow-color), 0 3px 6px -3px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 260px;
+  background-position: center;
+
+  @include on-tablet {
+    height: 360px;
+  }
+
+  @include on-desktop {
+    height: 440px;
+  }
+}

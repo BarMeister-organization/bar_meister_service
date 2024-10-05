@@ -14,12 +14,12 @@ export const FilterByComponents: React.FC = () => {
       <div className={style.filter}>
         <div className={style.firstRow}>
           {firstRow.map(item => (
-            <FilterIngridient ingridient={item}/>
+            <FilterIngridient ingridient={item} key={item.componentName}/>
           ))}
         </div>
         <div className={style.secondRow}>
           {secondRow.map(item => (
-            <FilterIngridient ingridient={item}/>
+            <FilterIngridient ingridient={item} key={item.componentName}/>
           ))}
         </div>
       </div>

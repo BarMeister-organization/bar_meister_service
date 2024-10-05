@@ -1,0 +1,25 @@
+.block {
+  padding: 40px 20px;
+  background: linear-gradient(to right, #587db0, #037a85);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.title {
+  font-weight: 700;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input {
+  border-radius: 8px;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}

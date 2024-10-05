@@ -1,0 +1,38 @@
+.image {
+  height: 150px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  @include on-tablet {
+    height: 200px;
+  }
+}
+
+.item {
+  background-color: white;
+  grid-column: span 1;
+  border-radius: 8px;
+  transition: opacity .3s;
+
+  &:hover {
+    opacity: .6;
+  }
+
+  @include on-tablet {
+    grid-column: span 2;
+  }
+}
+
+.title {
+  color: black;
+  text-align: center;
+  padding: 5px 0;
+
+  @include on-tablet {
+    padding: 10px 0;
+  }
+}
