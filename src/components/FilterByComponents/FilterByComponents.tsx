@@ -2,10 +2,12 @@ import React from 'react';
 import style from './FilterByModules.module.scss';
 import { popularComponents } from '../../utils/ingridients';
 import { FilterIngridient } from './FilterIngridient';
+import { shuffleArray } from '../../utils/FilterByComponents';
 
 export const FilterByComponents: React.FC = () => {
-  const firstRow = popularComponents.slice(0, Math.ceil(popularComponents.length / 2));
-  const secondRow = popularComponents.slice(Math.ceil(popularComponents.length / 2), popularComponents.length);
+  const shuffledComponents = shuffleArray(popularComponents);
+  const firstRow = shuffledComponents.slice(0, 15);
+  const secondRow = shuffledComponents.slice(15, 30);
 
   return (
     <div className={style['filter-block']}>
