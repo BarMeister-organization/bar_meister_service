@@ -17,4 +17,4 @@ const IngridientsList: React.FC<Props> = ({ visibleIngridients }) => {
   );
 };
 
-export default IngridientsList;
+export default React.memo(IngridientsList);
