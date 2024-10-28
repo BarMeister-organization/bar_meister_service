@@ -1,4 +1,4 @@
-.card {
+.wrapper {
   width: 318px;
   display: flex;
   flex-direction: column;
@@ -7,9 +7,48 @@
   border: 1px solid $light-grey-color;
 }
 
-.img {
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+.wrapperPage {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  border-radius: 12px;
+  border: 1px solid $dark-color;
+
+  @include on-tablet {
+    max-width: calc((100% - 24px) / 2);
+  }
+
+  @include on-desktop {
+    max-width: calc((100% - 72px) / 4);
+  }
+}
+
+.card {
+  position: relative;
+}
+
+.type {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: $white-color;
+  padding: 5px 10px;
+  border-radius: 12px;
+  border: 1px solid $dark-color;
+  font-size: 14px;
+}
+
+.img, 
+.imgPage {
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.imgPage {
+  @include on-desktop {
+    height: 320px;
+  }
 }
 
 .name {
@@ -17,4 +56,72 @@
   font-weight: 700;
   letter-spacing: 0.02em;
   padding: 16px;
+  text-align: center;
+
+  @include on-tablet {
+    font-size: 30px;
+  }
 }
+
+.namePage {
+  font-size: 24px;
+  font-family: $dancing-font;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+
+  @include on-tablet {
+    font-size: 32px;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+}
+
+.descr {
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.tags {
+  display: flex;
+  justify-content: space-between;
+}
+
+.taste,
+.diff {
+  padding: 5px 14px;
+  border-radius: 12px;
+}
+
+.taste {
+  background-color: $light-blue-color;
+  border: 1px solid $blue-border-color;
+  color: $blue-color;
+  font-size: 14px;
+}
+
+.easy {
+  background-color: $light-blue-color;
+  border: 1px solid $blue-border-color;
+  color: $blue-color;
+  font-size: 14px;
+}
+
+.medium {
+  background-color: $light-orange-color;
+  border: 1px solid $orange-border-color;
+  color: $orange-text-color;
+  font-size: 14px;
+}
+
+.hard {
+  background-color: $light-pink-color;
+  border: 1px solid $border-pink-color;
+  color: $text-red-color;
+  font-size: 14px;
+}
+

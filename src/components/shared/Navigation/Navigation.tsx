@@ -21,7 +21,7 @@ const navigationItems = [
   { to: "/cocktails", icon: 'icon-glass', label: 'Cocktails' },
   { to: "/bar", icon: 'icon-beaker', label: 'My Bar' },
   { to: "/favorites", icon: 'icon-heart', label: 'Favorites' },
-  {to: "/ingredients", icon: 'cherry', label: 'Ingredients' }
+  {to: "/ingredients", icon: 'icon-cherry', label: 'Ingredients' }
 ];
 
 const Navigation: React.FC<Props> = ({ showIcons, isMenu, onClose, isLoggedIn, openModal }) => {

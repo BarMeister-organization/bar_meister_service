@@ -1,0 +1,13 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @include on-tablet {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  @include on-desktop {
+  }
+}
