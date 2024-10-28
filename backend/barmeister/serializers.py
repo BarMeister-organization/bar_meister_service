@@ -64,6 +64,7 @@ class CocktailSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
+            "description",
             "ingredients",
             "cocktail_type",
             "taste",
@@ -115,7 +116,15 @@ class CocktailImageSerializer(serializers.ModelSerializer):
 class CocktailListSerializer(CocktailSerializer):
     class Meta:
         model = CocktailRecipe
-        fields = ["id", "name", "photo", "cocktail_type"]
+        fields = [
+            "id",
+            "name",
+            "photo",
+            "cocktail_type",
+            "taste",
+            "difficulty",
+            "description"
+        ]
 
 
 class FavouriteCocktailsSerializer(serializers.ModelSerializer):

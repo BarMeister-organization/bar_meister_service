@@ -89,6 +89,7 @@ class CocktailRecipe(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
     cocktail_type = models.CharField(max_length=100, choices=TypeChoices.choices)
+    description = models.TextField(blank=True, null=True)
     ingredients = models.ManyToManyField(Ingredient, through="CocktailIngredients")
     taste = models.CharField(max_length=100, choices=TasteChoices.choices)
     cocktail_base = models.CharField(max_length=100, choices=CocktailBaseChoices)
