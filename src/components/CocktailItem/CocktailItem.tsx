@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import style from './CocktailItem.module.scss';
 import { Cocktail } from "../../types/cocktail";
+import classNames from "classnames";
 
 type Props = {
   cocktail: Cocktail;
@@ -22,7 +23,11 @@ const CocktailItem: React.FC<Props> = ({ cocktail, isCocktailsPage }) => {
             <p className={style.descr}>{description}</p>
             <div className={style.tags}>
               <div className={style.taste}>{taste}</div>
-              <div className={style.diff}>{difficulty}</div>
+              <div className={classNames(style.diff, {
+                [style.easy]: difficulty === 'Easy',
+                [style.medium]: difficulty === 'Medium',
+                [style.hard]: difficulty === 'Hard',
+              })}>{difficulty}</div>
             </div>
           </div>
         ) : (
