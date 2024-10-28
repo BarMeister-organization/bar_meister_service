@@ -9,12 +9,25 @@ type Props = {
 }
 
 const CocktailItem: React.FC<Props> = ({ cocktail, isCocktailsPage }) => {
+  const { id, photo, name, description, taste, difficulty, cocktail_type } = cocktail;
 
   return (
-    <li>
-      <Link to={'/'} className={!isCocktailsPage ? style.card : style.cardPage} >
-        <img src={cocktail.photo} alt={cocktail.name} className={style.img} />
-        <h3 className={style.name}>{cocktail.name}</h3>
+    <li className={!isCocktailsPage ? style.wrapper : style.wrapperPage}>
+      <Link to={`/cocktail/${id}`} className={style.card}>
+        {isCocktailsPage && <div className={style.type}>{cocktail_type}</div>}
+        <img src={photo} alt={name} className={! isCocktailsPage ? style.img : style.imgPage} />
+        {isCocktailsPage ? (
+          <div className={style.info}>
+            <h3 className={style.namePage}>{name}</h3>
+            <p className={style.descr}>Here will be description from backend</p>
+            <div className={style.tags}>
+              <div className={style.taste}>Taste</div>
+              <div className={style.diff}>Easy</div>
+            </div>
+          </div>
+        ) : (
+          <h3 className={style.name}>{cocktail.name}</h3>
+        )}
       </Link>
     </li>
   );
