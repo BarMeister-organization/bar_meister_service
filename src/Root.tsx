@@ -9,6 +9,7 @@ import MyBarPage from "./pages/MyBarPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import IngridientsPage from "./pages/IngridientsPage";
 import IngridientDetail from "./components/IngridientDetailInfo/IngridientDetail";
+import CocktailPage from "./pages/CocktailPage";
 
 export const Root: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ export const Root: React.FC = () => {
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
           <Route path="/cocktails" element={<CocktailsPage />} />
+          <Route path="/cocktails/:cocktailId" element={<CocktailPage />} />
           <Route path="/recipe" element={<RecipePage />} />
           <Route path="/bar" element={<MyBarPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />

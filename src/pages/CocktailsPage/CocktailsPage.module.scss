@@ -95,7 +95,7 @@
 .trend {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 30px;
   background: linear-gradient(94.03deg, $light-violet-color 0.35%, $light-pink-color 99.65%);
   padding: 40px 32px;
   margin: 0 -16px;
@@ -113,10 +113,16 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  align-self: center;
+  gap: 30px;
 
   @include on-tablet {
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  @include on-desktop {
+    gap: 30px;
   }
 }

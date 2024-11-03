@@ -48,7 +48,7 @@ const CocktailsPage = () => {
         </div>
         <div className={style.trend}>
           <h3 className={style.trendTitle}>Currently trending</h3>
-          <p >
+          <p>
           Check out some of these cocktails that are trending on our site. What's currently going down based on our lovely users!
           </p>
           {loading && <Loader />}

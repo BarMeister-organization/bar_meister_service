@@ -12,6 +12,14 @@ type Props = {
 const CocktailItem: React.FC<Props> = ({ cocktail, isCocktailsPage }) => {
   const { id, photo, name, description, taste, difficulty, cocktail_type } = cocktail;
 
+  const getPreview = () => {
+    if (description) {
+      return description?.length > 130 ? description.slice(0, 130) + "..." : description;
+    }
+
+    return '';
+  }
+
   return (
     <li className={!isCocktailsPage ? style.wrapper : style.wrapperPage}>
       <Link to={`/cocktail/${id}`} className={style.card}>
@@ -20,7 +28,7 @@ const CocktailItem: React.FC<Props> = ({ cocktail, isCocktailsPage }) => {
         {isCocktailsPage ? (
           <div className={style.info}>
             <h3 className={style.namePage}>{name}</h3>
-            <p className={style.descr}>{description}</p>
+            <p className={style.descr}>{getPreview()}</p>
             <div className={style.tags}>
               <div className={style.taste}>{taste}</div>
               <div className={classNames(style.diff, {
